@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shopapp/layout/cubit/shop_cubit.dart';
 import 'package:shopapp/layout/home_layout.dart';
 import 'package:shopapp/modules/login/login_screen.dart';
 import 'package:shopapp/modules/onboarding/onboarding.dart';
@@ -30,7 +32,6 @@ void main() async {
 
 
 class MyApp extends StatelessWidget {
-  //bool onBoarding;
   Widget homePage;
   MyApp({Key? key,required this.homePage}) : super(key: key);
 
@@ -38,8 +39,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: homePage,
-      debugShowCheckedModeBanner: false,
-    );
+          home: homePage,
+          debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+          selectedItemColor: Colors.blue,
+          unselectedItemColor: Colors.grey
+        )
+      ),
+        );
 }
 }
