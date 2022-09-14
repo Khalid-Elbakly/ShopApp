@@ -11,9 +11,8 @@ class HomeLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-      return BlocProvider(
-          create: (context) => ShopCubit(),
-          child: BlocConsumer<ShopCubit,ShopStates>(
+      return
+        BlocConsumer<ShopCubit,ShopStates>(
         listener: (context,state) {},
         builder:(context,state) {
           var cubit = ShopCubit.get(context);
@@ -33,7 +32,8 @@ class HomeLayout extends StatelessWidget {
               ShopCubit.get(context).ChangeBottomNavPage(value);
             },
             selectedItemColor: Colors.blue,
+            showUnselectedLabels: true,
           )
     );}
-      ));}
+      );}
 }

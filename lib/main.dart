@@ -38,15 +38,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-          home: homePage,
-          debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.grey
-        )
-      ),
-        );
+    return BlocProvider(
+        create: (context) => ShopCubit()..homeData(),
+      child: MaterialApp(
+            home: homePage,
+            debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            selectedItemColor: Colors.blue,
+            unselectedItemColor: Colors.grey
+          )
+        ),
+          ),
+    );
 }
 }
