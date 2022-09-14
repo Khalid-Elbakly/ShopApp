@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopapp/layout/cubit/shop_cubit.dart';
 import 'package:shopapp/layout/cubit/shop_states.dart';
 import 'package:shopapp/modules/login/login_screen.dart';
+import 'package:shopapp/modules/search/search_screen.dart';
 import 'package:shopapp/shared/network/local/cache_helper.dart';
 
 class HomeLayout extends StatelessWidget {
@@ -18,7 +19,9 @@ class HomeLayout extends StatelessWidget {
           var cubit = ShopCubit.get(context);
 
           return Scaffold(
-          appBar: AppBar(title: Text('Salla'),),
+          appBar: AppBar(elevation: 0 ,title: Text('Salla',style: TextStyle(color: Colors.black),),actions: [IconButton(onPressed: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen()));
+          }, icon: Icon(Icons.search),color: Colors.black,)],backgroundColor: Colors.white,),
           body: cubit.BottomNavPages[cubit.CurrentIndex],
           bottomNavigationBar: BottomNavigationBar(
             items: [
@@ -33,6 +36,7 @@ class HomeLayout extends StatelessWidget {
             },
             selectedItemColor: Colors.blue,
             showUnselectedLabels: true,
+            type: BottomNavigationBarType.fixed,
           )
     );}
       );}

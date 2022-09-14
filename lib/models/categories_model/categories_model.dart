@@ -1,21 +1,21 @@
 import 'package:shopapp/models/categories_model/categories_model.dart';
 
-class categoriesModel{
+class CategoriesModel{
   bool? status;
   catogoriesData? data;
 
-  categoriesModel.fromJson(Map<String,dynamic> json){
+  CategoriesModel.fromJson(Map<String,dynamic> json){
     status = json['status'];
     data = catogoriesData.fromJson(json['data']);
   }
 }
 
 class catogoriesData{
-  List<dataModel>? data;
+  List<dataModel> data = [];
   catogoriesData.fromJson(Map<String,dynamic> json){
 
     json['data'].forEach((element){
-      data!.add(dataModel.fromJson(element));
+      data.add(dataModel.fromJson(element));
     });
   }
 }
