@@ -1,7 +1,3 @@
-import 'dart:convert';
-
-import 'package:shopapp/models/home_model/home_model.dart';
-
 class HomeModel{
   bool? status;
   HomeDataModel? data;
@@ -45,6 +41,7 @@ class ProductsModel{
   int? discount;
   String? image;
   String? name;
+  bool? inFavourites;
 
   ProductsModel.fromJson(Map<String,dynamic> json){
     id = json['id'];
@@ -53,5 +50,6 @@ class ProductsModel{
     discount = json['discount'];
     image = json['image'];
     name = json['name'];
+    inFavourites = json['in_favorites'];
   }
 }

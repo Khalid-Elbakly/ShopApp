@@ -6,6 +6,7 @@ import 'package:shopapp/layout/home_layout.dart';
 import 'package:shopapp/modules/login/cubit/cubit.dart';
 import 'package:shopapp/modules/login/cubit/states.dart';
 import 'package:shopapp/modules/register/register_screen.dart';
+import 'package:shopapp/shared/network/end_points.dart';
 import 'package:shopapp/shared/network/local/cache_helper.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -24,8 +25,9 @@ class LoginScreen extends StatelessWidget {
           if(state is loginSuccessState){
             if(state.loginmodel.status){
               print(state.loginmodel.status);
-              CacheHelper.setData(key: 'token', value: true);
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeLayout()));
+              CacheHelper.setData(key: 'loginState', value: true);
+              CacheHelper.setData(key: 'token', value: state.loginmodel.data.token).then((value) {token = state.loginmodel.data.token;
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeLayout()));});
             } else {
               print(state.loginmodel.status);
               Fluttertoast.showToast(msg: state.loginmodel.message,backgroundColor: Colors.red);

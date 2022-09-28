@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:shopapp/layout/cubit/shop_cubit.dart';
 import 'package:shopapp/models/categories_model/categories_model.dart';
@@ -7,14 +8,18 @@ class CategoriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      physics: BouncingScrollPhysics(),
-        itemBuilder: (context, index) => CreateCategory(ShopCubit.get(context).categoriesmodel!.data!.data[index]),
-        separatorBuilder: (context,index) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: Container(color: Colors.grey,height: 1,),
-        ),
-        itemCount: ShopCubit.get(context).categoriesmodel!.data!.data!.length);
+    return ConditionalBuilder(
+      condition: catogoriesData != null,
+      builder: (context) => ListView.separated(
+          physics: BouncingScrollPhysics(),
+          itemBuilder: (context, index) => CreateCategory(ShopCubit.get(context).categoriesModel!.data!.data[index]),
+          separatorBuilder: (context,index) => Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Container(color: Colors.grey,height: 1,),
+          ),
+          itemCount: ShopCubit.get(context).categoriesModel!.data!.data.length),
+      fallback: (context) => Center(child: CircularProgressIndicator()),
+    );
   }
 }
 

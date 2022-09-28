@@ -15,7 +15,7 @@ class homeScreen extends StatelessWidget {
     return BlocConsumer<ShopCubit, ShopStates>(
       listener: (context, state) {},
       builder: (context, state) => ConditionalBuilder(
-          condition: ShopCubit.get(context).homeModel != null && ShopCubit.get(context).categoriesmodel != null,
+          condition: ShopCubit.get(context).homeModel != null && ShopCubit.get(context).categoriesModel != null,
           builder: (context) => buildHome(context),
           fallback: (context) => Center(child: CircularProgressIndicator())),
     );
@@ -57,11 +57,11 @@ class homeScreen extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) => categoriesItem(
                           ShopCubit.get(context)
-                              .categoriesmodel!
+                              .categoriesModel!
                               .data!
-                              .data![index]),
+                              .data[index]),
                       separatorBuilder: (context, index) => SizedBox(width: 10,),
-                      itemCount: ShopCubit.get(context).categoriesmodel!.data!.data!.length),
+                      itemCount: ShopCubit.get(context).categoriesModel!.data!.data.length),
                 ),
                 SizedBox(height: 20,),
                 Text("NEW PRODUCTS",style: TextStyle(fontWeight: FontWeight.w700),)
@@ -75,7 +75,7 @@ class homeScreen extends StatelessWidget {
             children: List.generate(
                 ShopCubit.get(context).homeModel!.data!.products.length,
                 (index) => buildProductGrid(
-                    ShopCubit.get(context).homeModel!.data!.products[index])),
+                    ShopCubit.get(context).homeModel!.data!.products[index],context)),
             childAspectRatio: 1 / 1.58,
           ),
         ],
@@ -83,7 +83,7 @@ class homeScreen extends StatelessWidget {
     );
   }
 
-  Widget buildProductGrid(ProductsModel model) {
+  Widget buildProductGrid(ProductsModel model,context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -103,18 +103,20 @@ class homeScreen extends StatelessWidget {
                     'DISCOUNT',
                     style: TextStyle(color: Colors.white70),
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 3),
+                  padding: EdgeInsets.symmetric(horizontal: 5),
                 )
             ],
           ),
           SizedBox(
             height: 10,
           ),
-          Text(
-            '${model.name}',
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(height: 1),
+          Expanded(
+            child: Text(
+              '${model.name}',
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(height: 1,fontWeight: FontWeight.w700),
+            ),
           ),
           SizedBox(
             height: 5,
@@ -123,7 +125,7 @@ class homeScreen extends StatelessWidget {
             children: [
               Text(
                 '${model.price.round()}',
-                style: TextStyle(color: Colors.blue),
+                style: TextStyle(color: Colors.blue,fontWeight: FontWeight.w700),
               ),
               SizedBox(
                 width: 20,
@@ -132,10 +134,12 @@ class homeScreen extends StatelessWidget {
                 Text('${model.oldPrice}',
                     style: TextStyle(
                         color: Colors.grey,
-                        decoration: TextDecoration.lineThrough)),
+                        decoration: TextDecoration.lineThrough,fontWeight: FontWeight.w700)),
               Spacer(),
               IconButton(
-                  onPressed: () {}, icon: Icon(Icons.favorite_border_rounded))
+                  onPressed: (){
+                    ShopCubit.get(context).ChangeFavourites(model.id);
+                  }, icon: ShopCubit.get(context).favourite[model.id]! ? Icon(Icons.favorite,color: Colors.red,) : Icon(Icons.favorite_border_rounded))
             ],
           ),
         ],

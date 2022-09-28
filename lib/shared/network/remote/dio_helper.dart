@@ -22,4 +22,13 @@ class DioHelper {
     dio.options.headers = {'lang': lang, 'Authorization': token,'Content-Type': 'application/json'};
     return dio.post(url, data: data);
   }
+
+  static Future<Response> putData(
+      {required String url,
+        lang = 'en',
+        token,
+        required Map<String, dynamic> data}) {
+    dio.options.headers = {'lang': lang, 'Authorization': token,'Content-Type': 'application/json'};
+    return dio.put(url, data: data);
+  }
 }

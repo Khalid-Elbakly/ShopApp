@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopapp/models/login_model/login_model.dart';
-import 'package:shopapp/modules/login/cubit/cubit.dart';
 import 'package:shopapp/modules/login/cubit/states.dart';
 import 'package:shopapp/shared/network/remote/dio_helper.dart';
 

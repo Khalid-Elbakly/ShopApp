@@ -5,6 +5,7 @@ import 'package:shopapp/layout/cubit/shop_cubit.dart';
 import 'package:shopapp/layout/home_layout.dart';
 import 'package:shopapp/modules/login/login_screen.dart';
 import 'package:shopapp/modules/onboarding/onboarding.dart';
+import 'package:shopapp/shared/network/end_points.dart';
 import 'package:shopapp/shared/network/local/cache_helper.dart';
 import 'package:shopapp/shared/network/remote/dio_helper.dart';
 
@@ -13,7 +14,8 @@ void main() async {
   DioHelper.init();
   await CacheHelper.init();
   var onBoarding = CacheHelper.getData(key: 'OnBoarding');
-  var loginStatus = CacheHelper.getData(key: 'token');
+  var loginStatus = CacheHelper.getData(key: 'loginState');
+  token = CacheHelper.getData(key: 'token') == '' ? null : CacheHelper.getData(key: 'token');
 
   Widget widget;
 
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => ShopCubit()..homeData()..CategoriesData(),
+        create: (context) => ShopCubit()..homeData()..CategoriesData()..FavouritesData()..UserData(),
       child: MaterialApp(
             home: homePage,
             debugShowCheckedModeBanner: false,
