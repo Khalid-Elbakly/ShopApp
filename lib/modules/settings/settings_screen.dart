@@ -57,7 +57,7 @@ class SettingsScreen extends StatelessWidget {
                       ),
                       Container(
                           width: double.infinity,
-                          color: Colors.deepOrange,
+                          color: Colors.blue,
                           child: TextButton(
                               onPressed: () {
                                 Navigator.pushReplacement(
@@ -66,21 +66,21 @@ class SettingsScreen extends StatelessWidget {
                                             builder: (context) =>
                                                 UpdateProfile()));
                               },
-                              child: Text('UPDATE PROFILE'))),
+                              child: Text('UPDATE PROFILE',style: TextStyle(color: Colors.white),))),
                       Container(
                           width: double.infinity,
-                          color: Colors.deepOrange,
+                          color: Colors.blue,
                           child: TextButton(
                               onPressed: () {
                                 CacheHelper.removeData(key: 'loginStatus');
                                 CacheHelper.removeData(key: 'token').then(
-                                    (value) => Navigator.pushReplacement(
+                                    (value) => Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 LoginScreen())));
                               },
-                              child: Text('LOGOUT'))),
+                              child: Text('LOGOUT',style: TextStyle(color: Colors.white),),)),
                     ],
                   ),
                 ),

@@ -23,16 +23,17 @@ class _UpdateProfileState extends State<UpdateProfile> {
   var EmailController = TextEditingController();
   var PhoneController = TextEditingController();
 
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ShopCubit,ShopStates>(
         listener: (context,stata){},
         builder: (context,state) {
-          model = ShopCubit.get(context).dataModel;
+           model = ShopCubit.get(context).dataModel;
 
           NameController.text = model.data.name;
           EmailController.text = model.data.email;
-          PhoneController.text = model.data.phone;
+          PhoneController.value = TextEditingValue(text: '${model.data.phone}');
 
           return ConditionalBuilder(
             condition: model != null,
@@ -48,6 +49,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 children: [
                   if(state is LoadingUpdateDataState)
                   LinearProgressIndicator(),
+                  SizedBox(height: 30,),
                   TextFormField(controller: NameController,decoration: InputDecoration(prefixIcon: Icon(Icons.person,),labelText: 'Name',border: OutlineInputBorder(borderSide: BorderSide(width: 20)),),),
                   SizedBox(height: 30,),
                   TextFormField(controller: EmailController,decoration: InputDecoration(prefixIcon: Icon(Icons.email,),labelText: 'Email Address',border: OutlineInputBorder(borderSide: BorderSide(width: 20)),)),
@@ -60,7 +62,16 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     child: TextButton(onPressed: (){
                        ShopCubit.get(context).UpdateData(NameController.text, EmailController.text, PhoneController.text,context);
                     }, child: Text('UPDATE DATA',style: TextStyle(color: Colors.white),),),
-                  )
+                  ),
+                  SizedBox(height: 30,),
+                  Container(
+                    color: Colors.blue,
+                    width: double.infinity,
+                    child: TextButton(onPressed: (){
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeLayout()));
+                    }, child: Text('CANCEL',style: TextStyle(color: Colors.white),),),
+                  ),
+
                 ],
               ),
             ),
