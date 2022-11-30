@@ -47,9 +47,7 @@ class ShopCubit extends Cubit<ShopStates> {
       print(homeModel!.data!.products[0].image);
       print(homeModel!.data!.banners[0].image);
       homeModel!.data!.products.forEach((element) {
-        favourite.addAll({
-          element.id: element.inFavourites
-        });
+        favourite.addAll({element.id: element.inFavourites});
       });
       print(favourite);
     }).catchError((onError) {
@@ -75,7 +73,6 @@ class ShopCubit extends Cubit<ShopStates> {
 
   ChangeFavouriteModel? changeFavouriteModel;
 
-
   ChangeFavourites(int? id) {
     favourite[id] = !favourite[id]!;
     DioHelper.postData(url: favorites, data: {'product_id': id}, token: token)
@@ -87,8 +84,7 @@ class ShopCubit extends Cubit<ShopStates> {
       }
       FavouritesData();
       emit(SuccessChangeFavoritesState());
-    })
-        .catchError((error) {
+    }).catchError((error) {
       favourite[id] = !favourite[id]!;
       Fluttertoast.showToast(msg: error);
       emit(ErrorChangeFavoritesState());
@@ -123,32 +119,22 @@ class ShopCubit extends Cubit<ShopStates> {
   }
 
   LoginModel? updateModel;
-  bool ll = true;
 
   UpdateData(name, email, phone, context) {
     emit(LoadingUpdateDataState());
-    ll = false;
-    DioHelper
-        .putData(url: updateProfile,
+    DioHelper.putData(
+        url: updateProfile,
         token: token,
-        data: {'name': name, 'email': email, 'phone': phone})
-        .then((value) {
+        data: {'name': name, 'email': email, 'phone': phone}).then((value) {
       updateModel = LoginModel.fromJson(value.data);
       Fluttertoast.showToast(msg: '${updateModel!.message}').then((value) {
-        ll = true;
         return Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => HomeLayout()));
       });
-        emit
-        (
-        SuccessUpdateDataState
-        (
-        )
-        );
-      }).catchError((error) {
-        emit(ErrorUpdateDataState());
-        print(error);
-      });
-    }
-
-        }
+      emit(SuccessUpdateDataState());
+    }).catchError((error) {
+      emit(ErrorUpdateDataState());
+      print(error);
+    });
+  }
+}
